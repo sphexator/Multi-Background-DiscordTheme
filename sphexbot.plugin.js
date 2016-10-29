@@ -124,7 +124,6 @@ back.prototype.convert = function () {
             });
         });
     });
-});
 };
 
 back.prototype.start = function () {
