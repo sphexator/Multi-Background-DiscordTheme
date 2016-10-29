@@ -5,7 +5,6 @@ var apps = document.getElementsByClassName("app");
 var newDiv = document.createElement("div");
 var next = document.createElement("button");
 var prev = document.createElement("button");
-var shuffle = document.createElement("button");
 var url = "https://imgur.com";
 var array = [];
 var dontstart = false;
@@ -62,10 +61,6 @@ back.prototype.convert = function () {
                 next.innerHTML = "Next";
                 next.style.backgroundColor = "#282b30";
                 next.id = "nextButton";
-                $(links).append(shuffle);
-                shuffle.innerHTML = "Shuffle"
-                shuffle.style.backgroundColor = "#282b30";
-                shuffle.id = "shuffleButton";
                 console.log("Number of background images; " + (array.length - 1));
                 var randint = Math.floor(Math.random() * (array.length - 1));
                 index = randint;
@@ -123,34 +118,6 @@ back.prototype.convert = function () {
                     newDiv.style.backgroundImage = "url('" + url + array[index] + "')";
                     console.log("Current background image: Index = " + index + ", URL = " + url + array[index]);
                 }, 1000);
-                setTimeout(function () {
-                    $(newDiv).fadeIn(1000);
-                }, 1300);
-            });
-
-
-
-
-
-            // NEED TO MAKE THE IMAGES SHUFFLE
-            $(shuffle).on("click", function () {
-                if (incooldown == true) {
-                    return;
-                }
-                incooldown = true;
-                setTimeout(() => {
-                    incooldown = false;
-                }, 1750);
-
-                index = index
-                if (index == 1) {
-                    index = (array.length - 1);
-                }
-                $(newDiv).fadeOut(1000);
-                setTimeout(function () {
-                    newDiv.style.background = "url('" + url + array[index] + "')";
-                    console.log("Current background image: index = " + index + ", URL = " + url + array[index]);
-                } 1000);
                 setTimeout(function () {
                     $(newDiv).fadeIn(1000);
                 }, 1300);
