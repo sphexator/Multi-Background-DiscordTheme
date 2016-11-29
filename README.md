@@ -1,5 +1,5 @@
 # Multi-Background-DiscordTheme
-Discord theme with multiple backgrounds with the help of plugin
+Only commits here will be updates to the plugin. Changes to the theme is made in another file which isn't included.
 
 Basic knowledge in javascript is required to change the backgrounds.
 
