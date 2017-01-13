@@ -41,7 +41,9 @@ back.prototype.convert = function () {
                 dontstart = true;
             }
             if (dontstart == false) {
+                //Applying external CSS file
                 $("head").append('<link rel="stylesheet" href="https://dl.dropbox.com/s/plu5dmb7zinxeu7/emilia.theme.css"/>');
+                //Applying background stuff
                 flex[0].appendChild(newDiv);
                 newDiv.style.width = "100%";
                 newDiv.style.height = "100%";
