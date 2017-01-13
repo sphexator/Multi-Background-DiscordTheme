@@ -29,7 +29,6 @@ var setBackground = function (number) {
     $(newDiv).fadeIn(1000);
     console.log("Current background image: Index = " + index + ", URL = " + url + array[index]);
 }
-
 back.prototype.convert = function () {
     var elementExists = document.getElementById("bgImgContainer");
     $(function () {
@@ -42,6 +41,7 @@ back.prototype.convert = function () {
                 dontstart = true;
             }
             if (dontstart == false) {
+                $("head").append('<link rel="stylesheet" href="https://dl.dropbox.com/s/plu5dmb7zinxeu7/emilia.theme.css"/>');
                 flex[0].appendChild(newDiv);
                 newDiv.style.width = "100%";
                 newDiv.style.height = "100%";
@@ -138,13 +138,11 @@ back.prototype.getSettingsPanel = function () {
 };
 
 back.prototype.getName = function () {
-    return "Sphexbot";
 };
 back.prototype.getDescription = function () {
     return "Script to change background when using a theme without a background but transparent";
 };
 back.prototype.getVersion = function () {
-    return "0.5";
 };
 back.prototype.getAuthor = function () {
     return "Sphexator";
