@@ -143,7 +143,7 @@ back.prototype.getName = function () {
     return "Multi Anime Background Changer";
 };
 back.prototype.getDescription = function () {
-    return "Script to change background when using a theme without a background but transparent";
+    return "Script to change background";
 };
 back.prototype.getVersion = function () {
     return "2";
