@@ -138,11 +138,13 @@ back.prototype.getSettingsPanel = function () {
 };
 
 back.prototype.getName = function () {
+    return "Multi Anime Background Changer";
 };
 back.prototype.getDescription = function () {
     return "Script to change background when using a theme without a background but transparent";
 };
 back.prototype.getVersion = function () {
+    return "2";
 };
 back.prototype.getAuthor = function () {
     return "Sphexator";
