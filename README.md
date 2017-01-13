@@ -8,9 +8,3 @@ Plugin installation:<br>
 C:\Users\<USERNAME>\AppData\Roaming\BetterDiscord\plugins<br>
 Drag file over and restart or reload(ctrl+r) discord to see it.
 </p>
-
-<p>
-Theme installation:<br>
-C:\Users\<USERNAME>\AppData\Roaming\BetterDiscord\themes<br>
-Drag file over and restart or reload(ctrl+r) discord to see it.
-</p>
