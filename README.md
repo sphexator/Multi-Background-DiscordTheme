@@ -11,6 +11,6 @@ Drag javascript file over and restart/reload(ctrl+r) discord to see it.
 </p>
 <p>
 Option 2: Opening folder throu discord<br>
-Open Discord -> User Settings -> BetterDiscord -> Plugins tab -> Open Plugin Folder
+Open Discord -> User Settings -> BetterDiscord -> Plugins tab -> Open Plugin Folder<br>
 Drag javascript file over and restart/reload(ctrl+r) discord to see it.
 </p>
