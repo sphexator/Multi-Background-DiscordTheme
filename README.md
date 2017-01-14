@@ -8,7 +8,8 @@ Plugin installation:<br>
 1: Finding folder and drag over
 C:\Users\(change to your username)\AppData\Roaming\BetterDiscord\plugins<br>
 Drag javascript file over and restart/reload(ctrl+r) discord to see it.
-
+</p>
+<p>
 2: Opening folder throu discord
 Open Discord -> User Settings -> BetterDiscord -> Plugins tab -> Open Plugin Folder
 Drag javascript file over and restart/reload(ctrl+r) discord to see it.
