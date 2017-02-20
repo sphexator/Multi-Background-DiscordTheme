@@ -271,12 +271,15 @@ function backgroundChanger() {
     };
 
     themeChanger.prototype.getName = function () {
+        return "Multi-Background Theme";
     };
 
     themeChanger.prototype.getDescription = function () {
+        return "Script to change background and theme, also auto plays gif avatars";
     };
 
     themeChanger.prototype.getVersion = function () {
+        return "2.5";
     };
 
     themeChanger.prototype.getAuthor = function () {
