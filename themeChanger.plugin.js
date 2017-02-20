@@ -1,5 +1,6 @@
-//META{"name":"back"}*//
-var back = function () { };
+//META{"name":"themeChanger"}*//
+var themeChanger = function () { };
+
 var flex = document.getElementsByClassName("flex-horizontal flex-spacer");
 var apps = document.getElementsByClassName("app");
 var newDiv = document.createElement("div");
@@ -29,7 +30,7 @@ var setBackground = function (number) {
     $(newDiv).fadeIn(1000);
     console.log("Current background image: Index = " + index + ", URL = " + url + array[index]);
 }
-back.prototype.convert = function () {
+function backgroundChanger() {
     var elementExists = document.getElementById("bgImgContainer");
     $(function () {
         //text file to images
@@ -126,28 +127,159 @@ back.prototype.convert = function () {
             });
         });
     });
-};
+}
 
-back.prototype.start = function () {
-    this.convert();
-};
 
-back.prototype.load = function () { };
-back.prototype.unload = function () { };
-back.prototype.stop = function () { };
-back.prototype.getSettingsPanel = function () {
-    return "";
-};
+(function () {
+    "use strict";
+    const getInternalInstance = e => e[Object.keys(e).find(k => k.startsWith("__reactInternalInstance"))];
 
-back.prototype.getName = function () {
-    return "Theme changer";
-};
-back.prototype.getDescription = function () {
-    return "Script to change background and theme";
-};
-back.prototype.getVersion = function () {
-    return "2.1";
-};
-back.prototype.getAuthor = function () {
-    return "Sphexator";
-};
+    function getOwnerInstance(e, {include, exclude = ["Popout", "Tooltip", "Scroller", "BackgroundFlash"]} = {}) {
+        if (e === undefined) {
+            return undefined;
+        }
+
+
+        const excluding = include === undefined;
+        const filter = excluding ? exclude : include;
+
+
+        function getDisplayName(owner) {
+            const type = owner._currentElement.type;
+            const constructor = owner._instance && owner._instance.constructor;
+            return type.displayName || constructor && constructor.displayName || null;
+        }
+
+        function classFilter(owner) {
+            const name = getDisplayName(owner);
+            return (name !== null && !!(filter.includes(name) ^ excluding));
+        }
+
+
+        for (let prev, curr = getInternalInstance(e); !_.isNil(curr); prev = curr, curr = curr._hostParent) {
+            if (prev !== undefined && !_.isNil(curr._renderedChildren)) {
+                let owner = Object.values(curr._renderedChildren)
+                    .find(v => !_.isNil(v._instance) && v.getHostNode() === prev.getHostNode());
+                if (!_.isNil(owner) && classFilter(owner)) {
+                    return owner._instance;
+                }
+            }
+
+            if (_.isNil(curr._currentElement)) {
+                continue;
+            }
+
+            let owner = curr._currentElement._owner;
+            if (!_.isNil(owner) && classFilter(owner)) {
+                return owner._instance;
+            }
+        }
+
+        return null;
+    }
+
+    // Helper function for finding all elements matching selector affected by a mutation
+    function mutationFind(mutation, selector) {
+        var target = $(mutation.target), addedNodes = $(mutation.addedNodes);
+        var mutated = target.add(addedNodes).filter(selector);
+        var descendants = addedNodes.find(selector);
+        var ancestors = target.parents(selector);
+        return mutated.add(descendants).add(ancestors);
+    }
+
+    // Automatically play GIFs and "GIFV" Videos
+    function processAccessories(mutation) {
+        var accessories = mutationFind(mutation, ".accessory");
+
+        accessories.find(".image:has(canvas)").each(function () {
+            var image = $(this);
+            var canvas = image.children("canvas").first();
+            var src = canvas.attr("src");
+            if (src !== undefined) {
+                image.replaceWith($("<img>", {
+                    src: canvas.attr("src"),
+                    width: canvas.attr("width"),
+                    height: canvas.attr("height"),
+                }).addClass("image qt"));
+            }
+        });
+
+        // Handle GIFV
+        accessories.find(".embed-thumbnail-gifv:has(video)").each(function () {
+            var embed = $(this);
+            var video = embed.children("video").first();
+            embed.removeClass("embed-thumbnail-gifv").addClass("qt");
+            embed.parent().on("mouseout.autoGif", function (event) {
+                event.stopPropagation();
+            });
+            video[0].play();
+        });
+    }
+
+    const animationForced = new WeakSet();
+
+    function animateAvatar() {
+        try {
+            const messageGroup = getOwnerInstance(this, { include: ["MessageGroup"] });
+            if (messageGroup.state.animatedAvatar) {
+                animationForced.add(this);
+                setTimeout(() => messageGroup.setState({ animate: true }));
+            }
+        } catch (err) {
+            return;
+        }
+    }
+
+    function processAvatars(mutation) {
+        mutationFind(mutation, ".message-group").each(animateAvatar);
+    }
+
+    themeChanger.prototype.load = function () { };
+
+    themeChanger.prototype.unload = function () { };
+
+    themeChanger.prototype.start = function () {
+        var mutation = { target: document, addedNodes: [document] };
+        processAccessories(mutation);
+        processAvatars(mutation);
+        backgroundChanger(mutation);
+
+        $(".theme-dark, .theme-light").on("mouseleave.autoGif", ".message-group", animateAvatar);
+    };
+
+    themeChanger.prototype.stop = function () {
+        $(".theme-dark, .theme-light").off(".autoGif", ".message-group");
+        $(".message-group").each(function () {
+            if (!animationForced.delete(this)) {
+                return;
+            }
+            try {
+                getOwnerInstance(this, { include: ["MessageGroup"] }).setState({ animate: false });
+            } catch (err) {
+                return;
+            }
+        });
+    };
+
+    themeChanger.prototype.observer = function (mutation) {
+        processAccessories(mutation);
+        processAvatars(mutation);
+    };
+
+    themeChanger.prototype.getSettingsPanel = function () {
+        return "";
+    };
+
+    themeChanger.prototype.getName = function () {
+    };
+
+    themeChanger.prototype.getDescription = function () {
+    };
+
+    themeChanger.prototype.getVersion = function () {
+    };
+
+    themeChanger.prototype.getAuthor = function () {
+        return "Sphexator";
+    };
+})();
