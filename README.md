@@ -12,7 +12,7 @@ Basic knowledge in javascript is required to change the backgrounds.
 2. Open settings
 3. BetterDiscord section -> Plugin tab
 4. Open plugin folder
-5. Move plugin.js file over to that folder
+5. Move multi-background.plugin.js file over to that folder
 6. Restart (ctrl+r) discord
 
 ##Preview
